@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using System.Collections.Generic;
 
                          //(套用的原件)
@@ -23,7 +24,10 @@ public class ARManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             pointMouse = Input.mousePosition;           // 滑鼠座標 = 玩家的滑鼠座標
-            print(pointMouse);                          // 輸出座標測試用
+            if (arManager.Raycast(pointMouse, hits, TrackableType.PlaneWithinPolygon)) 
+            {
+                Instantiate(OBJ, hits[0].pose.position, Quaternion.identity);
+            }                  
         }
         // 判斷射線是否打到物件
         // 生成物件
